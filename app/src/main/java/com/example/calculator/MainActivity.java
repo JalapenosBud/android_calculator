@@ -40,8 +40,20 @@ public class MainActivity extends AppCompatActivity {
         Button button_multiply = findViewById(R.id.button_multiply);
         Button button_divide = findViewById(R.id.button_division);
 
+        Button button_ac = findViewById(R.id.button_clear);
+
         Button button_equals = findViewById(R.id.button_equals);
         TextView result_text = findViewById(R.id.result_text_view);
+
+        button_ac.setOnClickListener((view -> {
+            result_text.setText("");
+            counter = 0;
+            has_minus_been_clicked = false;
+            has_multiply_been_clicked = false;
+            has_plus_been_clicked = false;
+            has_divide_been_clicked = false;
+            calculate_list.clear();
+        }));
 
         //---BUTTONS
         button_one.setOnClickListener((view -> {
@@ -57,45 +69,49 @@ public class MainActivity extends AppCompatActivity {
         }));
 
         button_three.setOnClickListener((view ->{
-            has_plus_been_clicked = true;
+            calculate_list.add(button_three.getText().toString());
+            counter++;
             result_text.setText("counter: " + counter + " recent: " + calculate_list.get(0).toString());
         }));
 
         button_four.setOnClickListener((view -> {
-            calculate_list.add(button_two.getText().toString());
+            calculate_list.add(button_four.getText().toString());
             counter++;
             result_text.setText("counter: " + counter + " recent: " + calculate_list.get(calculate_list.size() - 1).toString());
         }));
 
         button_five.setOnClickListener((view ->{
-            has_plus_been_clicked = true;
+            calculate_list.add(button_five.getText().toString());
+            counter++;
             result_text.setText("counter: " + counter + " recent: " + calculate_list.get(0).toString());
         }));
 
         button_six.setOnClickListener((view -> {
-            calculate_list.add(button_two.getText().toString());
+            calculate_list.add(button_six.getText().toString());
             counter++;
             result_text.setText("counter: " + counter + " recent: " + calculate_list.get(calculate_list.size() - 1).toString());
         }));
 
         button_seven.setOnClickListener((view ->{
-            has_plus_been_clicked = true;
+            calculate_list.add(button_seven.getText().toString());
+            counter++;
             result_text.setText("counter: " + counter + " recent: " + calculate_list.get(0).toString());
         }));
 
         button_eight.setOnClickListener((view -> {
-            calculate_list.add(button_two.getText().toString());
+            calculate_list.add(button_eight.getText().toString());
             counter++;
             result_text.setText("counter: " + counter + " recent: " + calculate_list.get(calculate_list.size() - 1).toString());
         }));
 
         button_nine.setOnClickListener((view ->{
-            has_plus_been_clicked = true;
+            calculate_list.add(button_nine.getText().toString());
+            counter++;
             result_text.setText("counter: " + counter + " recent: " + calculate_list.get(0).toString());
         }));
 
         button_zero.setOnClickListener((view -> {
-            calculate_list.add(button_two.getText().toString());
+            calculate_list.add(button_zero.getText().toString());
             counter++;
             result_text.setText("counter: " + counter + " recent: " + calculate_list.get(calculate_list.size() - 1).toString());
         }));
@@ -120,9 +136,6 @@ public class MainActivity extends AppCompatActivity {
         }));
 
         button_equals.setOnClickListener((view -> {
-
-
-
             if(has_plus_been_clicked && counter == 2)
             {
                 result_text.setText("" + calculate_plus(calculate_list.get(0),calculate_list.get(1)));
