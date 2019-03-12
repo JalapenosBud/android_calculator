@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean has_multiply_been_clicked;
     private int counter = 0;
 
-    public static String EXTRA_MESSAGE = "";
+    public static final String EXTRA_MESSAGE = "Result from activity one is...: ";
 
     private String result = "";
 
@@ -144,25 +144,25 @@ public class MainActivity extends AppCompatActivity {
             if(has_plus_been_clicked && counter == 2)
             {
                 result_text.setText("" + calculate_plus(calculate_list.get(0),calculate_list.get(1)));
-                EXTRA_MESSAGE = result_text.toString();
+                result = result_text.getText().toString();
 
             }
             if(has_divide_been_clicked && counter == 2)
             {
                 result_text.setText("" + calculate_divide(calculate_list.get(0),calculate_list.get(1)));
-                EXTRA_MESSAGE = result_text.toString();
+                result = result_text.getText().toString();
 
             }
             if(has_minus_been_clicked && counter == 2)
             {
                 result_text.setText("" + calculate_minus(calculate_list.get(0),calculate_list.get(1)));
-                EXTRA_MESSAGE = result_text.toString();
+                result = result_text.getText().toString();
 
             }
             if(has_multiply_been_clicked && counter == 2)
             {
                 result_text.setText("" + calculate_multiply(calculate_list.get(0),calculate_list.get(1)));
-                EXTRA_MESSAGE = result_text.toString();
+                result = result_text.getText().toString();
 
             }
             counter = 0;
@@ -186,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
     public void sendMessage()
     {
         Intent intent = new Intent(this, SecondActivity.class);
-        intent.putExtra("RESULT",EXTRA_MESSAGE);
+        intent.putExtra(EXTRA_MESSAGE,result);
 
         startActivity(intent);
 
