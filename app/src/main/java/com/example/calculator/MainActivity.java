@@ -1,5 +1,6 @@
 package com.example.calculator;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
@@ -16,6 +17,8 @@ public class MainActivity extends AppCompatActivity {
     private boolean has_minus_been_clicked;
     private boolean has_multiply_been_clicked;
     private int counter = 0;
+
+    public static String EXTRA_MESSAGE = "";
 
     private String result = "";
 
@@ -41,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
         Button button_divide = findViewById(R.id.button_division);
 
         Button button_ac = findViewById(R.id.button_clear);
+
+        Button button_scientific = findViewById(R.id.button_scientific);
 
         Button button_equals = findViewById(R.id.button_equals);
         TextView result_text = findViewById(R.id.result_text_view);
@@ -139,24 +144,30 @@ public class MainActivity extends AppCompatActivity {
             if(has_plus_been_clicked && counter == 2)
             {
                 result_text.setText("" + calculate_plus(calculate_list.get(0),calculate_list.get(1)));
+                EXTRA_MESSAGE = result_text.toString();
 
             }
             if(has_divide_been_clicked && counter == 2)
             {
                 result_text.setText("" + calculate_divide(calculate_list.get(0),calculate_list.get(1)));
+                EXTRA_MESSAGE = result_text.toString();
 
             }
             if(has_minus_been_clicked && counter == 2)
             {
                 result_text.setText("" + calculate_minus(calculate_list.get(0),calculate_list.get(1)));
+                EXTRA_MESSAGE = result_text.toString();
 
             }
             if(has_multiply_been_clicked && counter == 2)
             {
                 result_text.setText("" + calculate_multiply(calculate_list.get(0),calculate_list.get(1)));
+                EXTRA_MESSAGE = result_text.toString();
 
             }
             counter = 0;
+
+            sendMessage();
         }));
 
         /*if(has_plus_been_clicked && counter == 1)
@@ -164,6 +175,27 @@ public class MainActivity extends AppCompatActivity {
             result_text.setText(calculate_list.get(calculate_list.size() - 1));
 
         }*/
+
+        button_scientific.setOnClickListener((view -> {
+            Intent data = new Intent(this, SecondActivity.class);
+            data.putExtra("Value1","data for second activity");
+            data.putExtra("Value2", "data for second activity");
+        }));
+    }
+
+    public void sendMessage()
+    {
+        Intent intent = new Intent(this, SecondActivity.class);
+        intent.putExtra("RESULT",EXTRA_MESSAGE);
+
+        startActivity(intent);
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+
     }
 
     public int calculate_plus(String one, String two){
@@ -191,7 +223,9 @@ public class MainActivity extends AppCompatActivity {
         int tmpInt = Integer.parseInt(one);
         int tmpIntTwo = Integer.parseInt(two);
 
-        return tmpInt > tmpIntTwo ? tmpInt - tmpIntTwo : tmpIntTwo - tmpInt;
+        return tmpInt - tmpIntTwo;
+        //to return absolute values ie never negative
+        //return tmpInt > tmpIntTwo ? tmpInt - tmpIntTwo : tmpIntTwo - tmpInt;
     }
 
 
